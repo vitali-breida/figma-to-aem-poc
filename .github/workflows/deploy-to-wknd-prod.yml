@@ -9,10 +9,8 @@ env:
   USER_NAME: ${{ secrets.WKND_USER_NAME }}
   USER_PWD: ${{ secrets.WKND_PASSWORD }}
 
-# Only run on a push to master branch
+# Manual run only (push trigger disabled)
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
 
 jobs:
