@@ -3,12 +3,12 @@
 **Goal:** Validate AI-assisted AEM component generation from Figma designs using MCP servers and the Adobe AEM Skill.
 
 **Stack:**
-- AEM 6.5.1 LTS on-premise — `http://localhost:4502/` (WKND site)
+- AEM Cloud SDK `2026.3.25194.20260330T181734Z` — `http://localhost:4502/` (WKND site)
 - Claude Code with MCP protocol
 - Figma MCP: official remote server `https://mcp.figma.com/mcp` (HTTP transport, OAuth)  
   Supported clients: https://www.figma.com/mcp-catalog/  
   Docs: https://developers.figma.com/docs/figma-mcp-server/remote-server-installation/#claude-code
-- AEM MCP: `aem-mcp-server` (npm, supports on-prem)
+- AEM MCP: `aem-mcp-server` (npm)
 - Adobe AEM Skill: `github.com/adobe/skills` branch `beta`
 
 ---
@@ -54,7 +54,7 @@ Generates `FIGMA_DESIGN_SYSTEM.md` at the project root — the authoritative ref
 
 ## Step 2 — AEM MCP
 
-Add the AEM MCP server for on-prem access (57 tools, supports AEM 6.5):
+Add the AEM MCP server (57 tools, supports AEM Cloud SDK):
 
 ```bash
 claude mcp add --transport http aem <URL>
@@ -74,16 +74,13 @@ Once added, verify via `/mcp`:
 
 URL: `https://github.com/adobe/skills/blob/beta/skills/aem/cloud-service/skills/create-component/SKILL.md`
 
-The skill lives under `/cloud-service/` — need to verify:
-- Is there an on-premise variant in the same repository?
-- Does the cloud-service skill work with on-prem via `aem-mcp-server` (which supports both modes)?
+The skill targets AEM as a Cloud Service — matches the local Cloud SDK environment.
 
 ---
 
 ## Step 4 — Configure Skill and `source/`
 
-Based on Step 3 findings:
-1. Set up `source/.aem-skills-config.yaml` for on-prem AEM 6.5
+1. Set up `source/.aem-skills-config.yaml` for AEM Cloud SDK
 2. Create `source/.claude/settings.json` if needed
 
 ---
@@ -93,5 +90,5 @@ Based on Step 3 findings:
 - Provide a Figma frame URL with a component design
 - Prompt: `"Create an AEM component <name> based on Figma design <URL>"`
 - Expected output: HTL template, Sling Model, authoring dialog, SCSS clientlib
-- Deploy: `mvn clean install -PautoInstallSinglePackage -Pclassic`
+- Deploy: `mvn clean install -PautoInstallSinglePackage`
 - Verify in AEM Author: `http://localhost:4502/`
