@@ -52,21 +52,36 @@ Generates `FIGMA_DESIGN_SYSTEM.md` at the project root — the authoritative ref
 
 ---
 
-## Step 2 — AEM MCP
+## Step 2 — AEM MCP ✅
 
-Add the AEM MCP server (57 tools, supports AEM Cloud SDK):
+The official Adobe AEM MCP is a cloud-hosted server — it connects to **AEMaaCS cloud instances only** (not localhost).
+
+### Setup
+
+Add the content MCP server (HTTP transport, OAuth 2.0 PKCE with Adobe ID):
 
 ```bash
-claude mcp add --transport http aem <URL>
+claude mcp add --transport http aem-content https://mcp.adobeaemcloud.com/adobe/mcp/content
 ```
 
-> URL and auth details TBD — see `aem-mcp-server` docs.
+This adds an entry to `.mcp.json`. Alternatively, edit `.mcp.json` directly:
 
-Once added, verify via `/mcp`:
+```json
+"aem-content": {
+  "type": "http",
+  "url": "https://mcp.adobeaemcloud.com/adobe/mcp/content"
+}
+```
+
+Then restart Claude Code, run `/mcp` → select `aem-content` → click **Authenticate** → sign in with Adobe ID → confirm "Authentication successful. Connected to aem-content".
+
+### Verify
+
+Once connected via `/mcp`:
 - `figma` — connected ✔
-- `aem` — connected
+- `aem-content` — connected ✔
 
-**AEM MCP test:** ask Claude to list WKND components from `/apps/wknd/components/`
+**AEM MCP test:** ask Claude to list all available tools from `aem-content`, then list available sites.
 
 ---
 
