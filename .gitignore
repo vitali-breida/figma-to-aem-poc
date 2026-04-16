@@ -1,30 +1,18 @@
 .env
 .env.*
+.inputs/
+.input/
+inputs/
 
 # Maven / Java build output
-target/
 **/target/
-*.log
 
 # Node / frontend artifacts
-node_modules/
 **/node_modules/
-dist/
 **/dist/
-coverage/
-**/coverage/
-.npm/
-.pnpm-store/
 
-# IDE and OS files
-.idea/
-.vscode/
+# IDE files
 *.iml
-.DS_Store
-Thumbs.db
+.claude/settings.local.json
 
-# Test and runtime caches
-.cache/
-**/.cache/
-.tmp/
-tmp/
+.inputs.*
