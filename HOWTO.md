@@ -85,18 +85,27 @@ Once connected via `/mcp`:
 
 ---
 
-## Step 3 — Review Adobe AEM Skill
+## Step 3 — Review Adobe AEM Skill ✅
 
 URL: `https://github.com/adobe/skills/blob/beta/skills/aem/cloud-service/skills/create-component/SKILL.md`
 
 The skill targets AEM as a Cloud Service — matches the local Cloud SDK environment.
 
+> **Figma server naming:** The skill expects the Figma MCP server to be named `plugin-figma-figma`.
+> The server in `.mcp.json` has been renamed from `figma` to `plugin-figma-figma` accordingly.
+
 ---
 
-## Step 4 — Configure Skill and `source/`
+## Step 4 — Configure Skill ✅
 
-1. Set up `source/.aem-skills-config.yaml` for AEM Cloud SDK
-2. Create `source/.claude/settings.json` if needed
+Created `.aem-skills-config.yaml` at project root (required — skill refuses to run without it):
+
+```yaml
+configured: true
+project: wknd
+package: com.adobe.aem.guides.wknd.core
+group: WKND Sites Project - Content
+```
 
 ---
 
