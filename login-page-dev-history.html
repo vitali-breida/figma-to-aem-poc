@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login Page — Development History</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/scss.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/xml.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    line-height: 1.6;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #1a1f2e 0%, #0d1117 60%);
+    border-bottom: 1px solid #21262d;
+    padding: 48px 40px 36px;
+  }
+  .hero-badge {
+    background: #1f6feb;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .hero h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .hero p  { color: #8b949e; font-size: 15px; max-width: 720px; }
+  .hero-meta { display: flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; }
+  .hero-meta span {
+    font-size: 12px; color: #8b949e;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-meta span::before { content: "●"; color: #3fb950; font-size: 8px; }
+  .hero-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+
+  .container { max-width: 980px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: "";
+    position: absolute; left: 11px; top: 8px; bottom: 0;
+    width: 2px; background: #21262d;
+  }
+
+  .step { position: relative; margin-bottom: 48px; }
+  .step-dot {
+    position: absolute; left: -32px; top: 4px;
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; z-index: 1;
+  }
+  .dot-create  { background: #238636; border: 2px solid #3fb950; color: #fff; }
+  .dot-error   { background: #6e1c1c; border: 2px solid #f85149; color: #fff; }
+  .dot-fix     { background: #1c3a6e; border: 2px solid #1f6feb; color: #fff; }
+  .dot-warn    { background: #5a3e10; border: 2px solid #d29922; color: #fff; }
+  .dot-success { background: #1c3a2a; border: 2px solid #3fb950; color: #fff; }
+
+  .step-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+  }
+  .step-tag {
+    font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .tag-create  { background: #0d2818; color: #3fb950; border: 1px solid #238636; }
+  .tag-error   { background: #2d0f0f; color: #f85149; border: 1px solid #6e1c1c; }
+  .tag-fix     { background: #0d1b30; color: #58a6ff; border: 1px solid #1f6feb; }
+  .tag-warn    { background: #271d0a; color: #d29922; border: 1px solid #5a3e10; }
+  .tag-success { background: #0d2818; color: #3fb950; border: 1px solid #238636; }
+
+  .step-title { font-size: 18px; font-weight: 600; color: #e6edf3; }
+  .step-desc  { color: #8b949e; font-size: 14px; margin-bottom: 16px; }
+
+  .file-group { display: flex; flex-direction: column; gap: 12px; }
+
+  .file-card { background: #161b22; border: 1px solid #21262d; border-radius: 8px; overflow: hidden; }
+  .file-card-header {
+    background: #1c2128; padding: 10px 16px;
+    display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid #21262d;
+  }
+  .file-path {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px; color: #8b949e;
+  }
+  .file-path strong { color: #e6edf3; }
+  .file-lang {
+    margin-left: auto; font-size: 11px; color: #8b949e;
+    background: #21262d; padding: 2px 8px; border-radius: 10px;
+  }
+  .file-card pre { margin: 0 !important; border-radius: 0 !important; }
+  .file-card pre code.hljs {
+    padding: 16px 20px !important;
+    font-size: 13px !important;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace !important;
+    line-height: 1.5 !important;
+  }
+
+  .error-block {
+    background: #1a0a0a;
+    border: 1px solid #6e1c1c;
+    border-left: 4px solid #f85149;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .error-block .error-title {
+    color: #f85149; font-size: 13px; font-weight: 600; margin-bottom: 8px;
+  }
+  .error-block code {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px; color: #ffa198;
+    line-height: 1.6; white-space: pre-wrap; word-break: break-all;
+    display: block;
+  }
+
+  .warn-block {
+    background: #1a1200;
+    border: 1px solid #5a3e10;
+    border-left: 4px solid #d29922;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .warn-block .warn-title {
+    color: #d29922; font-size: 13px; font-weight: 600; margin-bottom: 8px;
+  }
+  .warn-block p { color: #8b949e; font-size: 13px; line-height: 1.6; }
+  .warn-block code {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px; color: #e3b341;
+    line-height: 1.6; white-space: pre-wrap;
+    display: block; margin-top: 8px;
+  }
+
+  .diff-block {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+  .diff-header {
+    background: #1c2128; padding: 10px 16px;
+    font-size: 12px; color: #8b949e;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    border-bottom: 1px solid #21262d;
+  }
+  .diff-line {
+    padding: 2px 16px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 13px; line-height: 1.6;
+  }
+  .diff-remove { background: #3c1010; color: #ffa198; }
+  .diff-remove::before { content: "−  "; opacity: 0.7; }
+  .diff-add    { background: #0d2818; color: #7ee787; }
+  .diff-add::before    { content: "+  "; opacity: 0.7; }
+  .diff-ctx    { color: #6e7681; }
+  .diff-ctx::before    { content: "   "; }
+
+  .success-banner {
+    background: #0d2818; border: 1px solid #238636;
+    border-left: 4px solid #3fb950; border-radius: 6px;
+    padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+  }
+  .success-icon { font-size: 28px; }
+  .success-banner h3 { color: #3fb950; font-size: 16px; margin-bottom: 4px; }
+  .success-banner p  { color: #8b949e; font-size: 14px; }
+
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 12px; margin-top: 20px;
+  }
+  .summary-card {
+    background: #161b22; border: 1px solid #21262d; border-radius: 8px; padding: 16px;
+  }
+  .summary-card .sc-label { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .summary-card .sc-value { font-size: 14px; font-weight: 600; color: #e6edf3; font-family: "SFMono-Regular", Consolas, monospace; }
+  .summary-card .sc-sub   { font-size: 12px; color: #58a6ff; margin-top: 4px; }
+
+  .figma-preview {
+    background: #161b22; border: 1px solid #21262d; border-radius: 8px;
+    padding: 20px; margin-bottom: 32px;
+  }
+  .figma-preview h4 { color: #8b949e; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+  .design-mockup {
+    display: flex; border-radius: 6px; overflow: hidden;
+    height: 220px; border: 1px solid #30363d;
+  }
+  .dm-left {
+    flex: 0 0 46%; background: #ffffff;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 24px; gap: 10px;
+  }
+  .dm-left .dm-logo  { font-size: 14px; font-weight: 700; color: #3751fe; font-family: sans-serif; }
+  .dm-left .dm-h1    { font-size: 16px; font-weight: 700; color: #3751fe; line-height: 1.2; font-family: sans-serif; }
+  .dm-left .dm-sub   { font-size: 11px; color: rgba(0,0,0,0.6); font-family: sans-serif; }
+  .dm-left .dm-inputs { display: flex; flex-direction: column; gap: 6px; }
+  .dm-left .dm-input { height: 22px; border: 1px solid #c1bbbb; border-radius: 2px; background: #fff; font-size: 10px; color: #aaa; padding: 0 6px; display: flex; align-items: center; font-family: sans-serif; }
+  .dm-left .dm-btns  { display: flex; gap: 6px; }
+  .dm-left .dm-btn-p { background: #3751fe; color: #fff; border: none; border-radius: 0; font-size: 10px; padding: 4px 10px; font-family: sans-serif; }
+  .dm-left .dm-btn-s { background: #fff; color: #3751fe; border: 1px solid #3751fe; font-size: 10px; padding: 4px 10px; font-family: sans-serif; }
+  .dm-right {
+    flex: 0 0 54%; background: rgba(229,229,229,0.41);
+    display: flex; flex-direction: column; padding: 16px; gap: 12px;
+  }
+  .dm-right .dm-nav { display: flex; gap: 14px; justify-content: flex-end; }
+  .dm-right .dm-nav span { font-size: 10px; color: #202020; font-family: sans-serif; }
+  .dm-right .dm-nav span.active { border-bottom: 1px solid #202020; }
+  .dm-right .dm-img { flex: 1; background: linear-gradient(135deg, #e0e7ff, #c7d2fe); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #6366f1; font-size: 10px; font-family: sans-serif; }
+
+  .token-row { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 12px; }
+  .token-row span { font-size: 12px; color: #8b949e; }
+  .token-row code  { color: #58a6ff; }
+
+  .file-list {
+    background: #161b22; border: 1px solid #21262d; border-radius: 8px;
+    padding: 16px 20px;
+  }
+  .file-list-section { margin-bottom: 14px; }
+  .file-list-section:last-child { margin-bottom: 0; }
+  .file-list-label {
+    font-size: 11px; color: #58a6ff; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 8px; font-weight: 600;
+  }
+  .file-list-item {
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px; color: #8b949e; padding: 2px 0;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .file-list-item::before { content: "+"; color: #3fb950; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-top">
+    <span class="hero-badge">AEM Template + Components</span>
+    <span style="color:#8b949e;font-size:13px;">WKND Sites Project</span>
+  </div>
+  <h1>Login Page</h1>
+  <p>Login page template and two components generated from a Figma design (Community Login Page, frame 0:1). Two-column layout: LoginForm on the left, PageNavigator on the right. Full stack: Sling Models (Java) + HTL + SCSS + AEM editable template + Storybook.</p>
+  <div class="hero-meta">
+    <span>30+ files created</span>
+    <span>2 build errors fixed</span>
+    <span>5 deployment issues resolved</span>
+    <span>Bundle version: 4.1.0 → 4.2.0</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- FIGMA SOURCE -->
+<div class="figma-preview">
+  <h4>Figma source — Community Login Page &nbsp;(1440 × 1024 px)</h4>
+  <div class="design-mockup">
+    <div class="dm-left">
+      <div class="dm-logo">Digital</div>
+      <div class="dm-h1">Artificial Intelligence Driving Results For The Travel Industry</div>
+      <div class="dm-sub">Welcome back! Please login to your account.</div>
+      <div class="dm-inputs">
+        <div class="dm-input">Enter your email</div>
+        <div class="dm-input">Enter your password</div>
+      </div>
+      <div class="dm-btns">
+        <button class="dm-btn-p">Login</button>
+        <button class="dm-btn-s">Sign Up</button>
+      </div>
+    </div>
+    <div class="dm-right">
+      <div class="dm-nav">
+        <span class="active">Home</span>
+        <span>About us</span>
+        <span>Blog</span>
+        <span>Pricing</span>
+      </div>
+      <div class="dm-img">[ illustration ]</div>
+    </div>
+  </div>
+  <div class="token-row">
+    <span>#3751fe brand → <code>var(--loginBrand, #3751fe)</code></span>
+    <span>36 px heading → <code>$font-size-h1 + $font-weight-bold</code></span>
+    <span>18 px subtitle → <code>$font-size-base</code></span>
+    <span>24 px nav links → <code>$font-size-large</code></span>
+    <span>46% / 54% flex split</span>
+    <span>Right panel hidden on mobile</span>
+  </div>
+</div>
+
+<div class="timeline">
+
+<!-- ─────────────────────────────────────────
+     STEP 1 — SCSS
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-create">1</div>
+  <div class="step-header">
+    <span class="step-tag tag-create">create</span>
+    <span class="step-title">Frontend SCSS — 3 components</span>
+  </div>
+  <p class="step-desc">Entry files and styles for all three login components. Located under <code>components/login/</code> subfolder — one extra nesting level compared to other WKND components.</p>
+
+  <div class="file-list">
+    <div class="file-list-section">
+      <div class="file-list-label">login-layout</div>
+      <div class="file-list-item">ui.frontend/.../components/login/login-layout/scss/login-layout.scss</div>
+      <div class="file-list-item">ui.frontend/.../components/login/login-layout/scss/styles/_default.scss</div>
+    </div>
+    <div class="file-list-section">
+      <div class="file-list-label">login-form</div>
+      <div class="file-list-item">ui.frontend/.../components/login/login-form/scss/login-form.scss</div>
+      <div class="file-list-item">ui.frontend/.../components/login/login-form/scss/styles/_default.scss</div>
+    </div>
+    <div class="file-list-section">
+      <div class="file-list-label">page-navigator</div>
+      <div class="file-list-item">ui.frontend/.../components/login/page-navigator/scss/page-navigator.scss</div>
+      <div class="file-list-item">ui.frontend/.../components/login/page-navigator/scss/styles/_default.scss</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;">
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">components/login/login-form/scss/styles/<strong>_default.scss</strong> (excerpt)</span>
+      <span class="file-lang">SCSS</span>
+    </div>
+    <pre><code class="language-scss">$login-brand: var(--loginBrand, #3751fe);
+
+.cmp-login-form {
+    flex: 0 0 46%;
+    background: $white;
+    padding: ($gutter-padding * 4) ($gutter-padding * 3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &amp;__logo    { font-size: 30px; font-weight: $font-weight-bold; color: $login-brand; }
+    &amp;__heading { font-size: $font-size-h1; font-weight: $font-weight-bold; color: $login-brand; }
+    &amp;__subtitle { font-size: $font-size-base; color: rgba(0, 0, 0, 0.6); }
+    &amp;__input   { width: 100%; height: 74px; border: 1px solid #c1bbbb; }
+    &amp;__btn--primary   { background: $login-brand; color: $white; height: 54px; width: 129px; }
+    &amp;__btn--secondary { background: $white; color: $login-brand; border: 1px solid $login-brand; }
+
+    @media (max-width: $screen-small) { flex: 0 0 100%; }
+}
+</code></pre>
+  </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     STEP 2 — AEM Components (ui.apps)
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-create">2</div>
+  <div class="step-header">
+    <span class="step-tag tag-create">create</span>
+    <span class="step-title">AEM Components — ui.apps (8 files)</span>
+  </div>
+  <p class="step-desc">Three components under <code>wknd/components/login/</code>. <strong>login-layout</strong> is a hidden flex wrapper (avoids AEM responsive grid interference). <strong>page-navigator</strong> extends Core Image v3 for image delegation.</p>
+
+  <div class="file-list">
+    <div class="file-list-section">
+      <div class="file-list-label">login-layout (componentGroup=".hidden")</div>
+      <div class="file-list-item">ui.apps/.../components/login/login-layout/.content.xml</div>
+      <div class="file-list-item">ui.apps/.../components/login/login-layout/login-layout.html</div>
+    </div>
+    <div class="file-list-section">
+      <div class="file-list-label">login-form</div>
+      <div class="file-list-item">ui.apps/.../components/login/login-form/.content.xml</div>
+      <div class="file-list-item">ui.apps/.../components/login/login-form/login-form.html</div>
+      <div class="file-list-item">ui.apps/.../components/login/login-form/_cq_dialog/.content.xml</div>
+    </div>
+    <div class="file-list-section">
+      <div class="file-list-label">page-navigator (superType: image/v3/image)</div>
+      <div class="file-list-item">ui.apps/.../components/login/page-navigator/.content.xml</div>
+      <div class="file-list-item">ui.apps/.../components/login/page-navigator/page-navigator.html</div>
+      <div class="file-list-item">ui.apps/.../components/login/page-navigator/_cq_dialog/.content.xml</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;" class="file-group">
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">components/login/login-layout/<strong>login-layout.html</strong></span>
+      <span class="file-lang">HTL</span>
+    </div>
+    <pre><code class="language-xml">&lt;div class="cmp-login-layout"&gt;
+    &lt;sly data-sly-resource="login-form"/&gt;
+    &lt;sly data-sly-resource="page-navigator"/&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">components/login/login-form/<strong>login-form.html</strong> (excerpt)</span>
+      <span class="file-lang">HTL</span>
+    </div>
+    <pre><code class="language-xml">&lt;sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.LoginForm"
+     data-sly-use.placeholderTemplate="core/wcm/components/commons/v1/templates.html"/&gt;
+
+&lt;sly data-sly-test="${model.isEmpty}"&gt;
+    &lt;sly data-sly-call="${placeholderTemplate.placeholder @ isEmpty=true}"/&gt;
+&lt;/sly&gt;
+
+&lt;div class="cmp-login-form" data-sly-test="${!model.isEmpty}"&gt;
+    &lt;p class="cmp-login-form__logo"&gt;${model.logo}&lt;/p&gt;
+    &lt;h1 class="cmp-login-form__heading"&gt;${model.heading}&lt;/h1&gt;
+    &lt;p class="cmp-login-form__subtitle"&gt;${model.subtitle}&lt;/p&gt;
+    &lt;form class="cmp-login-form__form" action="${model.actionUrl}" method="POST"&gt;
+        &lt;!-- email, password, checkbox, buttons, social links --&gt;
+    &lt;/form&gt;
+&lt;/div&gt;</code></pre>
+  </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     STEP 3 — Sling Models
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-create">3</div>
+  <div class="step-header">
+    <span class="step-tag tag-create">create</span>
+    <span class="step-title">Sling Models — Java (4 files)</span>
+  </div>
+  <p class="step-desc">Two interfaces + two implementations. <code>PageNavigatorImpl</code> uses <code>@ChildResource List&lt;Resource&gt;</code> for multifield nav items and delegates illustration to Core Image via <code>ModelFactory</code>.</p>
+
+  <div class="file-group">
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">core/.../models/<strong>LoginForm.java</strong></span>
+      <span class="file-lang">Java</span>
+    </div>
+    <pre><code class="language-java">public interface LoginForm {
+    String getLogo();
+    String getHeading();
+    String getSubtitle();
+    String getActionUrl();
+    String getForgotPasswordUrl();
+    String getFacebookUrl();
+    String getLinkedinUrl();
+    String getGoogleUrl();
+    boolean hasSocialLinks();
+    boolean isEmpty();   // isBlank(heading) || isBlank(actionUrl)
+}</code></pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">core/.../models/<strong>PageNavigator.java</strong></span>
+      <span class="file-lang">Java</span>
+    </div>
+    <pre><code class="language-java">public interface PageNavigator {
+    List&lt;NavItem&gt; getNavItems();
+    boolean isEmpty();
+
+    interface NavItem {
+        String getTitle();
+        String getHref();
+        boolean isActive();
+    }
+}</code></pre>
+  </div>
+
+  <div class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">core/.../models/impl/<strong>PageNavigatorImpl.java</strong> (key parts)</span>
+      <span class="file-lang">Java</span>
+    </div>
+    <pre><code class="language-java">@Model(adaptables = {SlingHttpServletRequest.class},
+       adapters   = {PageNavigator.class},
+       resourceType = {"wknd/components/login/page-navigator"},
+       defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
+public class PageNavigatorImpl implements PageNavigator {
+
+    @Self  private SlingHttpServletRequest request;
+    @OSGiService private ModelFactory modelFactory;
+    @ChildResource private List&lt;Resource&gt; navItems;   // multifield
+
+    @PostConstruct
+    private void init() {
+        // delegate illustration to Core Image
+        modelFactory.getModelFromWrappedRequest(request, request.getResource(), Image.class);
+
+        navItemList = navItems != null
+            ? navItems.stream().map(NavItemImpl::new).collect(Collectors.toList())
+            : Collections.emptyList();
+    }
+}</code></pre>
+  </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     STEP 4 — AEM Template (ui.content)
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-create">4</div>
+  <div class="step-header">
+    <span class="step-tag tag-create">create</span>
+    <span class="step-title">AEM Editable Template — ui.content (4 files)</span>
+  </div>
+  <p class="step-desc">Login Page Template with all mandatory sub-nodes: <code>structure</code> (locked components with default content), <code>initial</code> (page scaffold), <code>policies</code> (clientlib binding).</p>
+
+  <div class="file-list">
+    <div class="file-list-section">
+      <div class="file-list-label">conf/wknd/settings/wcm/templates/login-page-template/</div>
+      <div class="file-list-item">.content.xml — template definition, status="enabled"</div>
+      <div class="file-list-item">structure/.content.xml — locked login-layout + login-form + page-navigator with defaults</div>
+      <div class="file-list-item">initial/.content.xml — page scaffold copied to new pages</div>
+      <div class="file-list-item">policies/.content.xml — cq:policy → wknd.site + wknd.base clientlibs</div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;" class="file-card">
+    <div class="file-card-header">
+      <span class="file-path">login-page-template/structure/<strong>.content.xml</strong> (excerpt)</span>
+      <span class="file-lang">XML</span>
+    </div>
+    <pre><code class="language-xml">&lt;jcr:content sling:resourceType="wknd/components/page"&gt;
+    &lt;root sling:resourceType="wknd/components/login/login-layout"&gt;
+        &lt;login-form
+            sling:resourceType="wknd/components/login/login-form"
+            logo="Digital"
+            heading="Artificial Intelligence Driving Results For The Travel Industry"
+            subtitle="Welcome back! Please login to your account."
+            actionUrl="/j_security_check"/&gt;
+        &lt;page-navigator
+            sling:resourceType="wknd/components/login/page-navigator"/&gt;
+    &lt;/root&gt;
+&lt;/jcr:content&gt;</code></pre>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     STEP 5 — Storybook
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-create">5</div>
+  <div class="step-header">
+    <span class="step-tag tag-create">create</span>
+    <span class="step-title">Storybook Stories (2 files)</span>
+  </div>
+  <p class="step-desc">Visual stories for testing components without a running AEM instance. <code>page-navigator.stories.js</code> includes a <code>FullPage</code> story showing both panels side-by-side.</p>
+  <div class="file-list">
+    <div class="file-list-section">
+      <div class="file-list-item">ui.frontend/stories/login-form.stories.js — Default story</div>
+      <div class="file-list-item">ui.frontend/stories/page-navigator.stories.js — Default + FullPage stories</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ERROR 1 — OSGi Baseline
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-error">!</div>
+  <div class="step-header">
+    <span class="step-tag tag-error">build error</span>
+    <span class="step-title">OSGi Baseline: MINOR version bump required</span>
+  </div>
+  <p class="step-desc">Adding two new public interfaces (<code>LoginForm</code>, <code>PageNavigator</code>) to the <code>core.models</code> package is a MINOR API addition. <code>bnd-baseline-maven-plugin</code> enforces semantic versioning and blocks the build.</p>
+
+  <div class="error-block">
+    <div class="error-title">⛔ baseline mismatch — bundle aem-guides-wknd.core</div>
+    <code>  MINOR  PACKAGE  com.adobe.aem.guides.wknd.core.models
+    ADDED INTERFACE  LoginForm
+    ADDED INTERFACE  PageNavigator</code>
+  </div>
+
+  <div class="step-header" style="margin-top:20px;">
+    <span class="step-tag tag-fix">fix</span>
+    <span class="step-title">Bump package-info.java and all 12 pom.xml files</span>
+  </div>
+
+  <div class="diff-block" style="margin-bottom:12px;">
+    <div class="diff-header">core/.../models/package-info.java</div>
+    <div class="diff-line diff-remove">@org.osgi.annotation.versioning.Version("2.2.0")</div>
+    <div class="diff-line diff-add">@org.osgi.annotation.versioning.Version("2.3.0")</div>
+  </div>
+  <div class="diff-block">
+    <div class="diff-header">pom.xml — all 12 modules</div>
+    <div class="diff-line diff-remove">&lt;version&gt;4.1.0&lt;/version&gt;</div>
+    <div class="diff-line diff-add">&lt;version&gt;4.2.0&lt;/version&gt;</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ERROR 2 — SCSS path
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-error">!</div>
+  <div class="step-header">
+    <span class="step-tag tag-error">build error</span>
+    <span class="step-title">SCSS: Can't find stylesheet to import</span>
+  </div>
+  <p class="step-desc">Login components live one folder deeper than regular WKND components: <code>components/login/{name}/scss/styles/</code> instead of <code>components/{name}/scss/styles/</code>. The relative path to <code>base/sass/shared</code> needs one extra <code>../</code>.</p>
+
+  <div class="error-block">
+    <div class="error-title">⛔ SassError — Can't find stylesheet to import</div>
+    <code>@import '../../../../base/sass/shared'
+  src/main/webpack/components/login/login-layout/scss/styles/_default.scss 1:9
+  src/main/webpack/components/login/login-layout/scss/login-layout.scss 1:9
+  src/main/webpack/site/main.scss 38:9  root stylesheet</code>
+  </div>
+
+  <div class="step-header" style="margin-top:20px;">
+    <span class="step-tag tag-fix">fix</span>
+    <span class="step-title">Add one extra ../ to all three _default.scss files</span>
+  </div>
+  <div class="diff-block">
+    <div class="diff-header">login-layout, login-form, page-navigator — _default.scss line 1</div>
+    <div class="diff-line diff-remove">@import '../../../../base/sass/shared';</div>
+    <div class="diff-line diff-add">@import '../../../../../base/sass/shared';</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     ERROR 3 — Replication metadata
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-error">!</div>
+  <div class="step-header">
+    <span class="step-tag tag-error">build error</span>
+    <span class="step-title">ui.content validation: missing replication metadata</span>
+  </div>
+  <p class="step-desc">The <code>netcentric-aem-replication-metadata</code> validator requires replication properties on every <code>jcr:content</code> node that is a child of a <code>cq:Page</code>. Affected: <code>structure/.content.xml</code> and <code>policies/.content.xml</code>.</p>
+
+  <div class="error-block">
+    <div class="error-title">⛔ ValidationViolation (×4 per file)</div>
+    <code>No replication action set for agent preview: cq:lastReplicationAction_preview not found
+No replication date set for agent preview: cq:lastReplicated_preview not found
+No replication action set for agent publish: cq:lastReplicationAction not found
+No replication date set for agent publish: cq:lastReplicated not found</code>
+  </div>
+
+  <div class="step-header" style="margin-top:20px;">
+    <span class="step-tag tag-fix">fix</span>
+    <span class="step-title">Add replication properties to structure and policies jcr:content nodes</span>
+  </div>
+  <div class="diff-block">
+    <div class="diff-header">structure/.content.xml and policies/.content.xml — jcr:content node</div>
+    <div class="diff-line diff-add">cq:lastReplicationAction="Activate"</div>
+    <div class="diff-line diff-add">cq:lastReplicationAction_preview="Activate"</div>
+    <div class="diff-line diff-add">cq:lastReplicated="{Date}2026-04-21T10:00:00.000-07:00"</div>
+    <div class="diff-line diff-add">cq:lastReplicated_preview="{Date}2026-04-21T10:00:00.000-07:00"</div>
+    <div class="diff-line diff-add">cq:lastReplicatedBy="admin"</div>
+    <div class="diff-line diff-add">jcr:mixinTypes="[mix:versionable,cq:ReplicationStatus]"</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     DEPLOYMENT ISSUE 1 — cq:allowedTemplates
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-warn">?</div>
+  <div class="step-header">
+    <span class="step-tag tag-warn">deploy issue</span>
+    <span class="step-title">Template not visible in page creation wizard</span>
+  </div>
+
+  <div class="warn-block">
+    <div class="warn-title">Root cause 1: missing initial + policies sub-nodes</div>
+    <p>AEM editable templates require three mandatory sub-nodes: <code>structure</code>, <code>initial</code>, and <code>policies</code>. Without <code>initial</code> and <code>policies</code>, the template engine considers the template incomplete and hides it from the wizard.</p>
+  </div>
+  <div class="warn-block">
+    <div class="warn-title">Root cause 2: cq:allowedTemplates did not include login-page-template</div>
+    <p>The property <code>cq:allowedTemplates</code> on <code>/content/wknd/jcr:content</code> lists which templates can be used to create child pages. The login template was missing from both <code>ui.content</code> and <code>ui.content.sample</code>.</p>
+  </div>
+
+  <div class="step-header" style="margin-top:20px;">
+    <span class="step-tag tag-fix">fix</span>
+    <span class="step-title">Create initial + policies nodes; add template to cq:allowedTemplates in both modules</span>
+  </div>
+  <div class="diff-block">
+    <div class="diff-header">ui.content + ui.content.sample — /content/wknd/.content.xml</div>
+    <div class="diff-line diff-remove">cq:allowedTemplates="[...,/conf/wknd/.../adventure-page-template]"</div>
+    <div class="diff-line diff-add">cq:allowedTemplates="[...,/conf/wknd/.../adventure-page-template,/conf/wknd/.../login-page-template]"</div>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     DEPLOYMENT ISSUE 2 — Sling Installer skip
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-warn">?</div>
+  <div class="step-header">
+    <span class="step-tag tag-warn">deploy issue</span>
+    <span class="step-title">Package changes not applied — Sling JCR Installer skips same version</span>
+  </div>
+  <div class="warn-block">
+    <div class="warn-title">Root cause: Sling JCR Installer skips reinstall of packages with same version</div>
+    <p>The <code>all</code> package deploys sub-packages to <code>/apps/wknd-packages/content/install/</code>. The Sling JCR Installer detects that <code>4.2.0</code> is already installed and skips it — even if the package content has changed. The fix is a manual Reinstall via AEM Package Manager after each build that modifies content packages.</p>
+    <code>http://localhost:4502/crx/packmgr/index.jsp
+→ aem-guides-wknd.ui.content.sample-4.2.0 → Reinstall</code>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     DEPLOYMENT ISSUE 3 — ui.content.sample replace mode
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-warn">?</div>
+  <div class="step-header">
+    <span class="step-tag tag-warn">deploy issue</span>
+    <span class="step-title">ui.content.sample deletes login-page-template on every install</span>
+  </div>
+  <div class="warn-block">
+    <div class="warn-title">Root cause: filter.xml uses replace mode for /conf/wknd/settings/wcm</div>
+    <p><code>ui.content.sample/filter.xml</code> has <code>&lt;filter root="/conf/wknd/settings/wcm" /&gt;</code> — no <code>mode</code> attribute means <strong>replace</strong>. On install, AEM deletes everything under this path and reimports only what is in the package. Since <code>login-page-template</code> was not in <code>ui.content.sample</code>, it was deleted on every reinstall.</p>
+    <code>Fix: copy all login-page-template files into ui.content.sample/
+  conf/wknd/settings/wcm/templates/login-page-template/ (4 files)</code>
+  </div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     DEPLOYMENT ISSUE 4 — No CSS
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-warn">?</div>
+  <div class="step-header">
+    <span class="step-tag tag-warn">deploy issue</span>
+    <span class="step-title">Created page has no CSS — clientlib not bound to template</span>
+  </div>
+  <div class="warn-block">
+    <div class="warn-title">Root cause: policies/jcr:content missing cq:policy for page clientlib</div>
+    <p>In AEM editable templates, the <code>policies/jcr:content</code> node must reference a page policy via <code>cq:policy</code>. That policy defines which clientlib categories (<code>wknd.site</code>, <code>wknd.base</code>, <code>wknd.dependencies</code>) are loaded for pages using this template. Without it, AEM renders the page with no stylesheets.</p>
+  </div>
+
+  <div class="step-header" style="margin-top:20px;">
+    <span class="step-tag tag-fix">fix</span>
+    <span class="step-title">Add cq:policy reference to policies/jcr:content in both modules</span>
+  </div>
+  <div class="diff-block">
+    <div class="diff-header">login-page-template/policies/.content.xml — jcr:content</div>
+    <div class="diff-line diff-add">cq:policy="wknd/components/page/policy_1570140199406"</div>
+    <div class="diff-line diff-ctx">jcr:primaryType="nt:unstructured"</div>
+    <div class="diff-line diff-ctx">sling:resourceType="wcm/core/components/policies/mappings"</div>
+  </div>
+  <p style="color:#8b949e;font-size:13px;margin-top:10px;">Policy <code>policy_1570140199406</code> (WKND Site Theme) loads: <code>clientlibs=[wknd.site, wknd.base]</code>, <code>clientlibsJsHead=wknd.dependencies</code>.</p>
+</div>
+
+<!-- ─────────────────────────────────────────
+     SUCCESS
+───────────────────────────────────────── -->
+<div class="step">
+  <div class="step-dot dot-success">✓</div>
+  <div class="step-header">
+    <span class="step-tag tag-success">success</span>
+    <span class="step-title">Page created — two-column login layout renders</span>
+  </div>
+
+  <div class="success-banner">
+    <div class="success-icon">🎉</div>
+    <div>
+      <h3>BUILD SUCCESS + Template deployed</h3>
+      <p>Login Page Template visible in Sites wizard. Page renders two-column layout: LoginForm (left 46%) + PageNavigator (right 54%) with all WKND styles loaded.</p>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="sc-label">Files created</div>
+      <div class="sc-value">30+</div>
+      <div class="sc-sub">scss, html, xml, java, js</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Build errors fixed</div>
+      <div class="sc-value">3</div>
+      <div class="sc-sub">baseline + scss path + validator</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Deploy issues resolved</div>
+      <div class="sc-value">4</div>
+      <div class="sc-sub">template visibility + CSS</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Bundle version</div>
+      <div class="sc-value">4.1.0 → 4.2.0</div>
+      <div class="sc-sub">MINOR API addition</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Package version</div>
+      <div class="sc-value">2.2.0 → 2.3.0</div>
+      <div class="sc-sub">core.models OSGi package</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Components</div>
+      <div class="sc-value">3</div>
+      <div class="sc-sub">login-layout · login-form · page-navigator</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Key pattern</div>
+      <div class="sc-value" style="font-size:11px;">hidden flex wrapper</div>
+      <div class="sc-sub">avoids AEM grid interference</div>
+    </div>
+    <div class="summary-card">
+      <div class="sc-label">Image delegation</div>
+      <div class="sc-value" style="font-size:11px;">image/v3/image</div>
+      <div class="sc-sub">ModelFactory + superType</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /timeline -->
+</div><!-- /container -->
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>

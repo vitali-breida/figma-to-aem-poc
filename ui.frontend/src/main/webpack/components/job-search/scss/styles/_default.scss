@@ -1,0 +1,183 @@
+// Danone brand tokens — not in WKND base palette
+$danone-navy:   var(--danoneNavy,   #002677);
+$danone-blue:   var(--danoneBlue,   #005eb8);
+$danone-yellow: var(--danoneYellow, #f3d03d);
+
+// Danone brand fonts — loaded separately outside WKND's Source Sans Pro / Asar stack
+$font-blogscript: var(--fontBlogScript, "BlogScript", $font-family-serif-default);
+$font-bariol:     var(--fontBariol,     "Bariol",     $font-family-sans-serif-default);
+
+.cmp-job-search {
+    background-color: $white;
+    padding: (4 * $gutter-padding) $gutter-padding;
+    text-align: center;
+
+    &__hero {
+        margin-bottom: (3 * $gutter-padding);
+    }
+
+    &__title {
+        font-family: $font-blogscript;
+        font-size: $font-size-xlarge;
+        font-weight: $font-weight-normal;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: $danone-blue;
+        line-height: 1.2;
+        margin: 0 auto (2 * $gutter-padding);
+        max-width: $max-width;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: (2 * $gutter-padding);
+        max-width: $max-width;
+        margin: 0 auto;
+    }
+
+    // ── Search bar ──────────────────────────────────────────────────────────
+    &__search-bar {
+        position: relative;
+        width: 100%;
+        max-width: 936px;
+        height: 60px;
+        background: $white;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+        padding: 0 (2 * $gutter-padding);
+        gap: $gutter-padding;
+    }
+
+    &__search-icon {
+        @include wkndiconstyle();
+        color: $gray;
+        font-size: 20px;
+        flex-shrink: 0;
+
+        &::before {
+            content: $wkndicon-search;
+        }
+    }
+
+    &__input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-family: $font-bariol;
+        font-size: 20px;
+        color: $black;
+        background: transparent;
+
+        &::placeholder {
+            color: $gray;
+        }
+    }
+
+    // ── Filter row ───────────────────────────────────────────────────────────
+    &__filters {
+        display: flex;
+        gap: (2 * $gutter-padding);
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    &__dropdown {
+        position: relative;
+        width: 296px;
+        height: 60px;
+    }
+
+    &__select {
+        appearance: none;
+        width: 100%;
+        height: 100%;
+        padding: 0 (3 * $gutter-padding) 0 (2 * $gutter-padding);
+        background: $white;
+        border: none;
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        font-family: $font-bariol;
+        font-size: 20px;
+        color: $black;
+        cursor: pointer;
+        outline: none;
+
+        &:focus-visible {
+            box-shadow: 0 0 0 3px $danone-blue;
+        }
+    }
+
+    // CSS chevron — the design asset is not in the WKND icon font
+    &__chevron {
+        position: absolute;
+        right: (2 * $gutter-padding);
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        pointer-events: none;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid $gray;
+            border-bottom: 2px solid $gray;
+            transform: rotate(45deg) translateY(-4px);
+        }
+    }
+
+    // ── Submit button ────────────────────────────────────────────────────────
+    &__submit {
+        height: 48px;
+        min-width: 200px;
+        padding: 0 (3 * $gutter-padding);
+        background-color: $danone-yellow;
+        border: none;
+        border-radius: 24px;
+        font-family: $font-blogscript;
+        font-size: 24px;
+        font-weight: $font-weight-normal;
+        color: $black;
+        cursor: pointer;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        &:focus-visible {
+            outline: 3px solid $danone-blue;
+            outline-offset: 2px;
+        }
+    }
+
+    // ── Responsive ───────────────────────────────────────────────────────────
+    @media (max-width: $screen-small) {
+        &__search-bar {
+            height: 52px;
+        }
+
+        &__filters {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__dropdown {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        &__title {
+            font-size: $font-size-h1;
+        }
+    }
+}

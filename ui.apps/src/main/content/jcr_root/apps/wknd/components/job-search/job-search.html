@@ -1,0 +1,51 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.JobSearch"
+     data-sly-use.placeholderTemplate="core/wcm/components/commons/v1/templates.html"/>
+
+<div class="cmp-job-search ${model.styleClasses @ context='unsafe'}"
+     data-cmp-is="job-search">
+
+    <div class="cmp-job-search__hero">
+        <h1 class="cmp-job-search__title">${model.title @ context='html'}</h1>
+    </div>
+
+    <form class="cmp-job-search__form" method="get" role="search">
+
+        <div class="cmp-job-search__search-bar">
+            <span class="cmp-job-search__search-icon" aria-hidden="true"></span>
+            <input class="cmp-job-search__input"
+                   type="search"
+                   name="q"
+                   placeholder="${model.searchPlaceholder @ context='attribute'}"
+                   aria-label="${model.searchPlaceholder @ context='attribute'}"/>
+        </div>
+
+        <div class="cmp-job-search__filters">
+            <div class="cmp-job-search__dropdown">
+                <select class="cmp-job-search__select" name="country"
+                        aria-label="${model.countriesLabel @ context='attribute'}">
+                    <option value="">${model.countriesLabel @ context='html'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+            <div class="cmp-job-search__dropdown">
+                <select class="cmp-job-search__select" name="function"
+                        aria-label="${model.jobFunctionLabel @ context='attribute'}">
+                    <option value="">${model.jobFunctionLabel @ context='html'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+            <div class="cmp-job-search__dropdown">
+                <select class="cmp-job-search__select" name="level"
+                        aria-label="${model.experienceLevelLabel @ context='attribute'}">
+                    <option value="">${model.experienceLevelLabel @ context='html'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+        </div>
+
+        <button class="cmp-job-search__submit" type="submit">
+            ${model.buttonText @ context='html'}
+        </button>
+
+    </form>
+</div>

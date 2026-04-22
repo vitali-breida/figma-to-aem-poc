@@ -1,0 +1,182 @@
+// Danone brand tokens — not in WKND base palette
+$danone-navy:   var(--danoneNavy,   #002677);
+$danone-yellow: var(--danoneYellow, #f3d03d);
+
+// Danone brand fonts
+$font-blogscript: var(--fontBlogScript, "BlogScript", $font-family-serif-default);
+$font-bariol:     var(--fontBariol,     "Bariol",     $font-family-sans-serif-default);
+
+.cmp-region-footer {
+    background-color: $danone-navy;
+    padding: (4 * $gutter-padding) $gutter-padding;
+    text-align: center;
+
+    // ── Region CTA ──────────────────────────────────────────────────────────
+    &__cta-wrapper {
+        margin-bottom: (3 * $gutter-padding);
+    }
+
+    &__cta {
+        display: inline-flex;
+        align-items: center;
+        gap: $gutter-padding;
+        background-color: $danone-yellow;
+        padding: (0.75 * $gutter-padding) (3 * $gutter-padding);
+        border-radius: 4px;
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.85;
+        }
+
+        &:focus-visible {
+            outline: 3px solid $white;
+            outline-offset: 2px;
+        }
+    }
+
+    &__cta-label {
+        font-family: $font-blogscript;
+        font-size: 24px;
+        font-weight: $font-weight-normal;
+        color: $black;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    // CSS right-arrow icon used in the CTA
+    &__cta-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background-color: $danone-navy;
+        border-radius: 50%;
+        flex-shrink: 0;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 9px;
+            height: 9px;
+            border-right: 2px solid $white;
+            border-top: 2px solid $white;
+            transform: rotate(45deg) translateX(-2px);
+        }
+    }
+
+    // ── Navigation ──────────────────────────────────────────────────────────
+    &__nav {
+        margin-bottom: (3 * $gutter-padding);
+    }
+
+    &__nav-list {
+        list-style: none;
+        margin: 0 0 $gutter-padding;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: (4 * $gutter-padding);
+    }
+
+    &__nav-item {
+        flex-shrink: 0;
+    }
+
+    &__nav-link {
+        font-family: $font-bariol;
+        font-size: 18px;
+        font-weight: $font-weight-bold;
+        color: $white;
+        text-decoration: none;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $white;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+
+    &__nav-list--secondary &__nav-link {
+        font-weight: $font-weight-normal;
+    }
+
+    // ── Social icons ─────────────────────────────────────────────────────────
+    &__social {
+        display: flex;
+        justify-content: center;
+        gap: (2 * $gutter-padding);
+        margin-bottom: (3 * $gutter-padding);
+    }
+
+    &__social-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        color: $white;
+        font-size: 20px;
+        text-decoration: none;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        &:focus-visible {
+            outline: 2px solid $white;
+            outline-offset: 2px;
+            border-radius: 50%;
+        }
+    }
+
+    // Map to WKND icon font glyphs for Facebook and Instagram
+    &__social-link--facebook .cmp-region-footer__social-icon {
+        @include wkndiconstyle();
+        &::before { content: $wkndicon-facebook; }
+    }
+
+    &__social-link--instagram .cmp-region-footer__social-icon {
+        @include wkndiconstyle();
+        &::before { content: $wkndicon-instagram; }
+    }
+
+    // LinkedIn is not in the WKND icon font; uses share icon as fallback
+    &__social-link--linkedin .cmp-region-footer__social-icon {
+        @include wkndiconstyle();
+        &::before { content: $wkndicon-share; }
+    }
+
+    // ── Copyright ────────────────────────────────────────────────────────────
+    &__copyright {
+        font-family: $font-bariol;
+        font-size: 18px;
+        color: $white;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    // ── Responsive ───────────────────────────────────────────────────────────
+    @media (max-width: $screen-small) {
+        &__nav-list {
+            gap: $gutter-padding (2 * $gutter-padding);
+        }
+
+        &__copyright {
+            font-size: $font-size-small;
+            letter-spacing: 3px;
+        }
+    }
+}

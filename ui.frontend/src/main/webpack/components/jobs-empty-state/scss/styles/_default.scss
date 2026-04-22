@@ -1,0 +1,82 @@
+// Danone brand tokens — not in WKND base palette
+$danone-blue:   var(--danoneBlue,   #005eb8);
+
+// Danone brand fonts
+$font-blogscript: var(--fontBlogScript, "BlogScript", $font-family-serif-default);
+$font-bariol:     var(--fontBariol,     "Bariol",     $font-family-sans-serif-default);
+
+.cmp-jobs-empty-state {
+    padding: (6 * $gutter-padding) $gutter-padding;
+    text-align: center;
+    background-color: $white;
+
+    &__heading {
+        font-family: $font-blogscript;
+        font-size: $font-size-xlarge;
+        font-weight: $font-weight-normal;
+        color: $danone-blue;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        line-height: 1.2;
+        margin: 0 0 (2 * $gutter-padding);
+    }
+
+    &__cta {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__link {
+        display: inline-flex;
+        align-items: center;
+        gap: $gutter-padding;
+        font-family: $font-bariol;
+        font-size: 18px;
+        font-weight: $font-weight-bold;
+        color: $danone-blue;
+        text-decoration: underline;
+        text-decoration-skip-ink: none;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        transition: opacity 0.15s ease;
+
+        &:hover {
+            opacity: 0.75;
+        }
+
+        &:focus-visible {
+            outline: 3px solid $danone-blue;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+
+    // CSS right-arrow icon — no matching wknd icon font glyph
+    &__link-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: $danone-blue;
+        border-radius: 50%;
+        flex-shrink: 0;
+
+        &::after {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid $white;
+            border-top: 2px solid $white;
+            transform: rotate(45deg) translateX(-2px);
+        }
+    }
+
+    // ── Responsive ───────────────────────────────────────────────────────────
+    @media (max-width: $screen-small) {
+        &__heading {
+            font-size: $font-size-h1;
+        }
+    }
+}
