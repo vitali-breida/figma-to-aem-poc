@@ -1,0 +1,49 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.RegionFooter"
+     data-sly-use.placeholderTemplate="core/wcm/components/commons/v1/templates.html"/>
+
+<footer class="cmp-region-footer" role="contentinfo">
+
+    <div class="cmp-region-footer__cta-wrapper">
+        <a class="cmp-region-footer__cta" href="${model.ctaHref @ context='uri'}">
+            <span class="cmp-region-footer__cta-label">${model.ctaLabel @ context='html'}</span>
+            <span class="cmp-region-footer__cta-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <nav class="cmp-region-footer__nav" aria-label="Footer primary navigation">
+        <ul class="cmp-region-footer__nav-list cmp-region-footer__nav-list--primary">
+            <sly data-sly-list.item="${model.primaryNavItems}">
+                <li class="cmp-region-footer__nav-item">
+                    <a class="cmp-region-footer__nav-link"
+                       href="${item.href @ context='uri'}">${item.label @ context='html'}</a>
+                </li>
+            </sly>
+        </ul>
+        <ul class="cmp-region-footer__nav-list cmp-region-footer__nav-list--secondary">
+            <sly data-sly-list.item="${model.secondaryNavItems}">
+                <li class="cmp-region-footer__nav-item">
+                    <a class="cmp-region-footer__nav-link"
+                       href="${item.href @ context='uri'}">${item.label @ context='html'}</a>
+                </li>
+            </sly>
+        </ul>
+    </nav>
+
+    <div class="cmp-region-footer__social">
+        <a class="cmp-region-footer__social-link cmp-region-footer__social-link--facebook"
+           href="#" aria-label="Facebook" rel="noopener noreferrer" target="_blank">
+            <span class="cmp-region-footer__social-icon" aria-hidden="true"></span>
+        </a>
+        <a class="cmp-region-footer__social-link cmp-region-footer__social-link--instagram"
+           href="#" aria-label="Instagram" rel="noopener noreferrer" target="_blank">
+            <span class="cmp-region-footer__social-icon" aria-hidden="true"></span>
+        </a>
+        <a class="cmp-region-footer__social-link cmp-region-footer__social-link--linkedin"
+           href="#" aria-label="LinkedIn" rel="noopener noreferrer" target="_blank">
+            <span class="cmp-region-footer__social-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+
+    <p class="cmp-region-footer__copyright">${model.copyrightText @ context='html'}</p>
+
+</footer>
