@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
+          xmlns:cq="http://www.day.com/jcr/cq/1.0"
+          xmlns:jcr="http://www.jcp.org/jcr/1.0"
+          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+    jcr:primaryType="nt:unstructured"
+    jcr:title="Danone Footer"
+    sling:resourceType="cq/gui/components/authoring/dialog">
+    <content jcr:primaryType="nt:unstructured"
+             sling:resourceType="granite/ui/components/coral/foundation/container">
+        <items jcr:primaryType="nt:unstructured">
+            <tabs jcr:primaryType="nt:unstructured"
+                  sling:resourceType="granite/ui/components/coral/foundation/tabs"
+                  maximized="{Boolean}true">
+                <items jcr:primaryType="nt:unstructured">
+                    <properties jcr:primaryType="nt:unstructured"
+                                jcr:title="Properties"
+                                sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items jcr:primaryType="nt:unstructured">
+                            <columns jcr:primaryType="nt:unstructured"
+                                     sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns">
+                                <items jcr:primaryType="nt:unstructured">
+                                    <column jcr:primaryType="nt:unstructured"
+                                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                                        <items jcr:primaryType="nt:unstructured">
+
+                                            <jobsAllUrl jcr:primaryType="nt:unstructured"
+                                                        sling:resourceType="granite/ui/components/coral/foundation/form/pathfield"
+                                                        fieldLabel="All Jobs URL"
+                                                        fieldDescription="URL for the CTA banner linking to all jobs."
+                                                        rootPath="/content"
+                                                        name="./jobsAllUrl"/>
+
+                                            <jobsAllLabel jcr:primaryType="nt:unstructured"
+                                                          sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                          fieldLabel="All Jobs Label"
+                                                          name="./jobsAllLabel"
+                                                          emptyText="ALL UK AND IRELAND JOBS"/>
+
+                                            <facebookUrl jcr:primaryType="nt:unstructured"
+                                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                         fieldLabel="Facebook URL"
+                                                         name="./facebookUrl"
+                                                         emptyText="#"/>
+
+                                            <instagramUrl jcr:primaryType="nt:unstructured"
+                                                          sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                          fieldLabel="Instagram URL"
+                                                          name="./instagramUrl"
+                                                          emptyText="#"/>
+
+                                            <linkedinUrl jcr:primaryType="nt:unstructured"
+                                                         sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                         fieldLabel="LinkedIn URL"
+                                                         name="./linkedinUrl"
+                                                         emptyText="#"/>
+
+                                            <copyrightText jcr:primaryType="nt:unstructured"
+                                                           sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                                                           fieldLabel="Copyright / Bottom Bar Text"
+                                                           name="./copyrightText"
+                                                           emptyText="COOKIES | PRIVACY POLICY | DANONE.COM"/>
+
+                                        </items>
+                                    </column>
+                                </items>
+                            </columns>
+                        </items>
+                    </properties>
+                </items>
+            </tabs>
+        </items>
+    </content>
+</jcr:root>

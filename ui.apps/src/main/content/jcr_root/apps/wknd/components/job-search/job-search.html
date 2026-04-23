@@ -1,0 +1,39 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.JobSearch"/>
+<div class="cmp-job-search" data-cmp-is="job-search"
+     data-cmp-api-endpoint="${model.apiEndpoint @ context='attribute'}">
+    <div class="cmp-job-search__hero">
+        <h2 class="cmp-job-search__heading">${model.heading @ context='text'}</h2>
+    </div>
+    <form class="cmp-job-search__form" method="GET">
+        <div class="cmp-job-search__search-bar">
+            <span class="cmp-job-search__search-icon" aria-hidden="true"></span>
+            <input class="cmp-job-search__input"
+                   type="text"
+                   name="q"
+                   placeholder="${model.titlePlaceholder @ context='attribute'}"/>
+        </div>
+        <div class="cmp-job-search__filters">
+            <div class="cmp-job-search__dropdown">
+                <select name="location" class="cmp-job-search__select">
+                    <option value="">${model.countryLabel @ context='text'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+            <div class="cmp-job-search__dropdown">
+                <select name="jobFunction" class="cmp-job-search__select">
+                    <option value="">${model.jobFunctionLabel @ context='text'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+            <div class="cmp-job-search__dropdown">
+                <select name="level" class="cmp-job-search__select">
+                    <option value="">${model.experienceLevelLabel @ context='text'}</option>
+                </select>
+                <span class="cmp-job-search__chevron" aria-hidden="true"></span>
+            </div>
+        </div>
+        <button class="cmp-job-search__button" type="submit">
+            ${model.submitLabel @ context='text'}
+        </button>
+    </form>
+</div>

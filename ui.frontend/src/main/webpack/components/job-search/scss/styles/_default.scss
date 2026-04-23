@@ -1,0 +1,162 @@
+@import '../../../../base/sass/shared';
+
+$danone-dark-blue: #002677;
+$danone-blue: #005EB8;
+$danone-yellow: #F3D03D;
+$danone-bg-blue: #C5DDF0;
+$danone-pill-radius: 24px;
+$danone-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+
+.cmp-job-search {
+    background-color: $danone-bg-blue;
+    padding: 48px $gutter-padding 96px;
+    position: relative;
+    text-align: center;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 64px;
+        background: $white;
+        border-radius: 64px 64px 0 0;
+    }
+
+    &__hero {
+        margin-bottom: 32px;
+    }
+
+    &__heading {
+        display: inline;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 32px;
+        font-weight: 400;
+        color: $black;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background-color: $danone-yellow;
+        padding: 4px 10px;
+        line-height: 1.6;
+        box-decoration-break: clone;
+        -webkit-box-decoration-break: clone;
+        margin: 0;
+
+        @media (min-width: ($screen-small + 1)) {
+            font-size: 40px;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 936px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+        align-items: center;
+    }
+
+    &__search-bar {
+        display: flex;
+        align-items: center;
+        background: $white;
+        border-radius: $danone-pill-radius;
+        box-shadow: $danone-shadow;
+        height: 60px;
+        padding: 0 32px;
+        gap: 16px;
+        width: 100%;
+    }
+
+    &__search-icon {
+        flex-shrink: 0;
+        width: 24px;
+        height: 24px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23202020' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    &__input {
+        flex: 1;
+        border: none;
+        outline: none;
+        font-family: 'Nunito', $font-family-sans-serif;
+        font-size: 20px;
+        color: $black;
+        background: transparent;
+
+        &::placeholder {
+            color: $gray;
+        }
+    }
+
+    &__filters {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+
+        @media (min-width: ($screen-small + 1)) {
+            flex-direction: row;
+        }
+    }
+
+    &__dropdown {
+        position: relative;
+        flex: 1;
+        height: 60px;
+    }
+
+    &__select {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        background: $white;
+        border-radius: $danone-pill-radius;
+        box-shadow: $danone-shadow;
+        padding: 0 48px 0 32px;
+        font-family: 'Nunito', $font-family-sans-serif;
+        font-size: 20px;
+        color: $black;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    &__chevron {
+        position: absolute;
+        right: 32px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 16px;
+        height: 16px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%23202020' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        pointer-events: none;
+    }
+
+    &__button {
+        width: 200px;
+        height: 48px;
+        background-color: $danone-yellow;
+        color: $black;
+        border: none;
+        border-radius: $danone-pill-radius;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 24px;
+        font-weight: 400;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background-color: darken(#F3D03D, 10%);
+            outline: none;
+        }
+    }
+}

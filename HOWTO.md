@@ -48,7 +48,7 @@ create_design_system_rules
 
 Generates `FIGMA_DESIGN_SYSTEM.md` at the project root — the authoritative reference for translating Figma designs into frontend code (design tokens, component patterns, naming conventions). Run once per project, re-run when the design system changes significantly.
 
-> **Note for Adobe AEM Skill:** The skill may expect the Figma server to be named `plugin-figma-figma`. To be resolved in Step 3.
+> **Note for Adobe AEM Skill:** The skill expects the Figma MCP server to be named `plugin-figma-figma` — configured accordingly in `.mcp.json`.
 
 ---
 
@@ -85,11 +85,24 @@ Once connected via `/mcp`:
 
 ---
 
-## Step 3 — Review Adobe AEM Skill ✅
+## Step 3 — Install Adobe AEM Skill ✅
 
-URL: `https://github.com/adobe/skills/blob/beta/skills/aem/cloud-service/skills/create-component/SKILL.md`
+Source: `https://github.com/adobe/skills/blob/beta/skills/aem/cloud-service/skills/create-component/SKILL.md`
 
 The skill targets AEM as a Cloud Service — matches the local Cloud SDK environment.
+
+### Installation
+
+Skill files copied from the `beta` branch of `github.com/adobe/skills` to the Claude Code skills directory:
+
+```
+.claude/skills/create-component/
+├── SKILL.md
+├── README.md
+├── references/   (15 reference files loaded on-demand by the skill)
+└── assets/
+    └── field-type-mappings.md
+```
 
 > **Figma server naming:** The skill expects the Figma MCP server to be named `plugin-figma-figma`.
 > The server in `.mcp.json` has been renamed from `figma` to `plugin-figma-figma` accordingly.

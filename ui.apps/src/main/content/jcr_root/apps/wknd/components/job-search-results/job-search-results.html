@@ -1,0 +1,16 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.JobSearchResults"/>
+<div class="cmp-job-search-results"
+     data-cmp-is="job-search-results"
+     data-cmp-api-endpoint="${model.apiEndpoint @ context='attribute'}"
+     data-cmp-items-per-page="${model.itemsPerPage}"
+     data-cmp-no-results-message="${model.noResultsMessage @ context='attribute'}">
+    <div class="cmp-job-search-results__list" role="list" aria-live="polite"></div>
+    <p class="cmp-job-search-results__loading" hidden>${'Loading...' @ i18n}</p>
+    <p class="cmp-job-search-results__empty" hidden></p>
+    <a class="cmp-job-search-results__alert-cta"
+       href="${model.jobAlertUrl @ context='uri'}"
+       hidden>${'Sign up for our Job Alert' @ i18n}</a>
+    <button class="cmp-job-search-results__load-more" type="button" hidden>
+        ${'Load more' @ i18n}
+    </button>
+</div>

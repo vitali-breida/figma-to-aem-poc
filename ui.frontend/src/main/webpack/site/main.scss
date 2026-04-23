@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700&display=swap');
+
 @import '~normalize-scss/sass/normalize';
 
 @import '../base/sass/shared';
@@ -27,6 +29,12 @@
 @import '../components/teaser/scss/teaser.scss';
 @import '../components/text/scss/text.scss';
 @import '../components/title/scss/title.scss';
+
+/* Danone */
+@import '../components/danone-header/scss/danone-header.scss';
+@import '../components/danone-footer/scss/danone-footer.scss';
+@import '../components/job-search/scss/job-search.scss';
+@import '../components/job-search-results/scss/job-search-results.scss';
 
 /* Form */
 @import '../components/form/sign-in-form/scss/sign-in-form.scss';

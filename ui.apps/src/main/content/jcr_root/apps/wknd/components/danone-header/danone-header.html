@@ -1,0 +1,48 @@
+<sly data-sly-use.model="com.adobe.aem.guides.wknd.core.models.DanoneHeader"/>
+<header class="cmp-danone-header">
+    <div class="cmp-danone-header__topbar">
+        <div class="cmp-danone-header__topbar-inner">
+            <div class="cmp-danone-header__topbar-left">
+                <span class="cmp-danone-header__lang">EN &#9660;</span>
+                <a class="cmp-danone-header__global" href="#">
+                    <span class="cmp-danone-header__global-icon" aria-hidden="true"></span>
+                    GLOBAL SITE
+                </a>
+            </div>
+            <div class="cmp-danone-header__topbar-right">
+                <a class="cmp-danone-header__saved" href="#">
+                    <span class="cmp-danone-header__saved-icon" aria-hidden="true"></span>
+                    SAVED JOBS
+                </a>
+                <a class="cmp-danone-header__alert" href="#">
+                    <span class="cmp-danone-header__alert-icon" aria-hidden="true"></span>
+                    JOB ALERT
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="cmp-danone-header__navbar">
+        <div class="cmp-danone-header__navbar-inner">
+            <a class="cmp-danone-header__logo" href="/">
+                <img class="cmp-danone-header__logo-img"
+                     src="${model.logoReference @ context='uri'}"
+                     alt="${model.logoAlt @ context='attribute'}"
+                     data-sly-test="${model.logoReference}"/>
+                <span class="cmp-danone-header__logo-text"
+                      data-sly-test="${!model.logoReference}">${model.logoAlt @ context='text'}</span>
+            </a>
+            <nav class="cmp-danone-header__nav" aria-label="Main navigation">
+                <ul class="cmp-danone-header__nav-list">
+                    <sly data-sly-list.item="${model.navItems}">
+                        <li class="cmp-danone-header__nav-item">
+                            <a class="cmp-danone-header__nav-link ${item.active ? 'cmp-danone-header__nav-link--active' : ''}"
+                               href="${item.path @ context='uri'}">${item.title @ context='text'}</a>
+                        </li>
+                    </sly>
+                </ul>
+            </nav>
+            <a class="cmp-danone-header__jobs-btn"
+               href="${model.jobsUrl @ context='uri'}">${model.jobsLabel @ context='text'}</a>
+        </div>
+    </div>
+</header>
